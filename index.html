@@ -16,22 +16,34 @@
     <svg xmlns="http://www.w3.org/2000/svg" width="959" height="593">
   <title>Blank map of the United States and its territories</title>
 <defs>
-<style type="text/css">
-.state {fill:#f8f7f3}                        /* default color for all states and territories not specified below */
-.borders {stroke:#0a2852
-    ; stroke-width:1}    /* color and width of borders between states */
-.dccircle {display:yes}                      /* set display to yes to show the circle for the District of Columbia, or none to hide it */
-.separator1 {stroke:#e8d2a2; stroke-width:2} /* color and width of lines around Alaska, Hawaii and territories */
-.separator2 {stroke:#e8d2a2; stroke-width:1} /* color and width of lines between islands of the same territory */
+<style type="text/css">.state {fill:#f8f7f3}                        /* default color for all states and territories not specified below */
+.state {
+  fill: #f8f7f3;
+}
 
-/* Individual states and territories can be colored as follows:
-.ks,.mt,.pa {fill:#c89a3d}
-.ca,.gu {fill:#c89a3d}
-In this example, Kansas, Montana and Pennsylvania are colored blue, and California and Guam are colored red.
-Place this code in the empty space below. */
+g.state > path.licensed,
+.dc.licensed {
+  fill: #c89a3d;
+}
 
+.borders {
+  stroke: #0a2852;
+  stroke-width: 1;
+}
 
+.dccircle {
+  display: yes;
+}
 
+.separator1 {
+  stroke: #e8d2a2;
+  stroke-width: 2;
+}
+
+.separator2 {
+  stroke: #e8d2a2;
+  stroke-width: 1;
+}
 </style>
 </defs>
 
