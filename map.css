@@ -1,17 +1,42 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+    background: transparent;
+}
+
+#crm-map {
+    width: 100%;
+    max-width: 959px;
+    margin: 0 auto;
+}
+
+#crm-map svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Default state color */
 .state {
   fill: #f8f7f3;
 }
 
+/* Licensed states */
 g.state > .licensed,
 circle.dc.licensed {
   fill: #c89a3d !important;
 }
 
+/* State borders */
 .borders {
   stroke: #0a2852;
   stroke-width: 1;
 }
 
+/* Alaska / Hawaii / territory separators */
 .separator1 {
   stroke: #e8d2a2;
   stroke-width: 2;
