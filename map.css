@@ -2,9 +2,9 @@
   fill: #f8f7f3;
 }
 
-g.state > path.licensed,
-.dc.licensed {
-  fill: #c89a3d;
+g.state > .licensed,
+circle.dc.licensed {
+  fill: #c89a3d !important;
 }
 
 .borders {
