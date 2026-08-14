@@ -46,3 +46,9 @@ circle.dc.licensed {
   stroke: #e8d2a2;
   stroke-width: 1;
 }
+
+@media (max-width: 767px) {
+  #crm-map {
+    transform: translateX(22px);
+  }
+}
