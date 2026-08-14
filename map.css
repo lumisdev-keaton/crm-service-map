@@ -33,7 +33,7 @@ circle.dc.licensed {
 /* State borders */
 .borders {
   stroke: #0a2852;
-  stroke-width: 1;
+  stroke-width: 2;
 }
 
 /* Alaska / Hawaii / territory separators */
