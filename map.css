@@ -1,22 +1,23 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background: transparent;
+.state {
+  fill: #f8f7f3;
 }
 
-body {
-  overflow: hidden;
+g.state > path.licensed,
+.dc.licensed {
+  fill: #c89a3d;
 }
 
-#crm-map {
-  width: 100%;
+.borders {
+  stroke: #0a2852;
+  stroke-width: 1;
 }
 
-#crm-map svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 1200px;
-  margin: 0 auto;
+.separator1 {
+  stroke: #e8d2a2;
+  stroke-width: 2;
+}
+
+.separator2 {
+  stroke: #e8d2a2;
+  stroke-width: 1;
 }
