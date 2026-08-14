@@ -1,69 +1,44 @@
-function highlightStates(stateCodes) {
-  // Remove existing licensed styling
+document.addEventListener("DOMContentLoaded", function () {
+
+  // Read licensed state codes from the iframe URL
+  const params = new URLSearchParams(window.location.search);
+  const statesParam = params.get("states");
+
+  if (!statesParam) {
+    console.log("No licensed states supplied.");
+    return;
+  }
+
+  const licensedStates = statesParam
+    .split(",")
+    .map(code => code.trim().toLowerCase())
+    .filter(Boolean);
+
+  console.log("Licensed states:", licensedStates);
+
+  // Clear any existing licensed classes
   document.querySelectorAll("g.state > path").forEach(function (state) {
     state.classList.remove("licensed");
   });
 
-  // Reset DC separately
   document.querySelectorAll(".dc").forEach(function (dc) {
     dc.classList.remove("licensed");
   });
 
-  // Apply licensed styling
-  stateCodes.forEach(function (code) {
-    const cleanCode = String(code).trim().toLowerCase();
-
-    if (!cleanCode) return;
+  // Highlight licensed states
+  licensedStates.forEach(function (code) {
 
     const state = document.querySelector(
-      "g.state > path." + CSS.escape(cleanCode)
+      "g.state > path." + CSS.escape(code)
     );
 
     if (state) {
       state.classList.add("licensed");
+      console.log("Highlighted:", code);
+    } else {
+      console.warn("State not found:", code);
     }
 
-    // Handle DC circle/path
-    if (cleanCode === "dc") {
-      document.querySelectorAll(".dc").forEach(function (dc) {
-        dc.classList.add("licensed");
-      });
-    }
   });
-}
 
-
-/* ---------------------------------
-   1. Read states from URL
----------------------------------- */
-
-document.addEventListener("DOMContentLoaded", function () {
-  const params = new URLSearchParams(window.location.search);
-  const statesParam = params.get("states");
-
-  if (!statesParam) return;
-
-  const states = statesParam
-    .split(",")
-    .map(function (code) {
-      return code.trim().toLowerCase();
-    })
-    .filter(Boolean);
-
-  highlightStates(states);
-});
-
-
-/* ---------------------------------
-   2. Also support postMessage later
----------------------------------- */
-
-window.addEventListener("message", function (event) {
-  if (!event.data || event.data.type !== "crmLicensedStates") {
-    return;
-  }
-
-  const licensedStates = event.data.states || [];
-
-  highlightStates(licensedStates);
 });
