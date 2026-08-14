@@ -1,44 +1,48 @@
-document.addEventListener("DOMContentLoaded", function () {
-
-  // Read licensed state codes from the iframe URL
-  const params = new URLSearchParams(window.location.search);
-  const statesParam = params.get("states");
-
-  if (!statesParam) {
-    console.log("No licensed states supplied.");
-    return;
-  }
-
-  const licensedStates = statesParam
-    .split(",")
-    .map(code => code.trim().toLowerCase())
-    .filter(Boolean);
-
-  console.log("Licensed states:", licensedStates);
-
-  // Clear any existing licensed classes
-  document.querySelectorAll("g.state > path").forEach(function (state) {
+function highlightLicensedStates(stateCodes) {
+  // Remove previous highlights
+  document.querySelectorAll("g.state > path").forEach((state) => {
     state.classList.remove("licensed");
   });
 
-  document.querySelectorAll(".dc").forEach(function (dc) {
+  // Reset DC separately
+  document.querySelectorAll(".dc").forEach((dc) => {
     dc.classList.remove("licensed");
   });
 
-  // Highlight licensed states
-  licensedStates.forEach(function (code) {
+  if (!Array.isArray(stateCodes)) return;
 
-    const state = document.querySelector(
-      "g.state > path." + CSS.escape(code)
-    );
+  stateCodes.forEach((code) => {
+    const normalizedCode = String(code).trim().toLowerCase();
 
-    if (state) {
-      state.classList.add("licensed");
-      console.log("Highlighted:", code);
-    } else {
-      console.warn("State not found:", code);
-    }
+    if (!normalizedCode) return;
 
+    document
+      .querySelectorAll(`g.state > path.${CSS.escape(normalizedCode)}, .dc.${CSS.escape(normalizedCode)}`)
+      .forEach((state) => {
+        state.classList.add("licensed");
+      });
   });
+}
 
+
+// Receive licensed states from Webflow
+window.addEventListener("message", function (event) {
+  if (!event.data) return;
+
+  if (event.data.type !== "crmLicensedStates") return;
+
+  highlightLicensedStates(event.data.states);
+});
+
+
+// Tell the parent Webflow page that the map is ready
+window.addEventListener("DOMContentLoaded", function () {
+  if (window.parent !== window) {
+    window.parent.postMessage(
+      {
+        type: "crmMapReady"
+      },
+      "*"
+    );
+  }
 });
